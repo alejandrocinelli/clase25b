@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { authController } from "../controllers/index.js";
-
+import {ramdonController} from "../controllers/ramdon.controller.js"
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -19,6 +19,10 @@ router.route("/register")
  router.get("/login-error", authController.loginFaliure) 
  router.get("/signup-error", authController.signupFaliure)
  router.get("/logout" , authController.logout  ) 
+
+ router.get("/ramdoms",  ramdonController.getRamdoms )
+
+ router.get("/info", authController.info)
  
 
 export default router;

@@ -5,14 +5,16 @@ import passport from 'passport';
 import mongoose from "mongoose";
 import exphbs from "express-handlebars";
 import invalidUrl from './middlewares/invalidUrl.middleware.js';
-
+import dotenv from 'dotenv';
 import { passportStrategy } from './lib/passport.lib.js';
-
+import args from './yargs.js';
 import { fileURLToPath } from "url";
 import path , { dirname, join } from "path";
 import { User } from './models/user.models.js';
 
 const app = express();
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -62,9 +64,16 @@ app.use("/",routes);
 
 app.use(invalidUrl);
 
-await mongoose.connect("mongodb://localhost:27017/passport");
+await mongoose.connect(process.env.DATABASE_URl);
 console.log("Databe connected!");
-app.listen(3000, () => {
+
+const expressServer = app.listen(args.puerto, () => {
+    console.log(`Server listening port ${args.puerto}`);
+});
+
+ /*app.listen(3000, () => {
   console.log("Server listening port 3000");
 
-});
+});*/
+
+// "mongodb://localhost:27017/passport"

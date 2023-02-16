@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import passport from 'passport';
+import args from "../yargs.js";
 
 const getLogin = (req, res) => {
     if (req.isAuthenticated()) {
@@ -49,8 +50,19 @@ const logout = (req, res) => {
    //return res.sendFile(join(__dirname, "../../views/login.html")); 
 }
 
+const info = (req, res) => { 
+    
+  res.render("info", {
+    entryArgs: JSON.stringify(args),
+    platform: process.platform,
+    versionNode: process.version,
+    memory: process.memoryUsage().rss,
+    path: process.execPath,
+    processId: process.pid,
+    dir: process.cwd(),
+}) }
 
 export const authController = { 
     getLogin , 
     getRegister, loginFaliure ,
-    signupFaliure , logout }
+    signupFaliure , logout , info }
