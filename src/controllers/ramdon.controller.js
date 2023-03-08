@@ -4,7 +4,7 @@ const getRamdoms = (req, res) => {
 
     const {cant } = req.query; 
     const childProcess = fork("child.js")
-    const quantity = cant ? cant : 1000000000;
+    const quantity = cant ? cant : 10000000;
 
     childProcess.send(quantity);
 

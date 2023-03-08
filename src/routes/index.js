@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { authController } from "../controllers/index.js";
 import {ramdonController} from "../controllers/ramdon.controller.js"
+import compression from "compression";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -23,6 +24,8 @@ router.route("/register")
  router.get("/ramdoms",  ramdonController.getRamdoms )
 
  router.get("/info", authController.info)
- 
+ router.get("/infoCompressed",compression() ,authController.info)
+
+ router.get("*",authController.errorReq );
 
 export default router;

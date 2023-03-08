@@ -2,6 +2,7 @@
 import bcrypt from "bcrypt";
 import LocalStrategy from 'passport-local';
 import { User } from '../models/user.models.js';
+import logger from "./logger.js";
  
 // vamos a crear una funcion que nos permita hashear la contraseña
 const hashPasword = (password) => {
@@ -22,12 +23,14 @@ const loginStrategy = new LocalStrategy( async (username, password , done  ) => 
     try {
         const user = await User.findOne({username});
         if(!user || !validPassword(password, user.password)){
+            logger.error("Invalid credentials");
             return done("Invalid credentials", null);
         }
         
         done(null, user);
 
     } catch (error) {
+        logger.error(`Error while login in: ${error}`)
         done("Error while login in", null);
     }
 
@@ -40,7 +43,10 @@ const registerStrategy = new LocalStrategy( { passReqToCallback: true },
         try {
             const existUser = await User.findOne({username});
 
-            if(existUser){ return done(null, false, {message: 'El usuario ya existe'})}
+            if(existUser){ 
+                logger.error("El usuario ya existe");
+                return done(null, false, {message: 'El usuario ya existe'})
+            }
             
             const newUser = { 
                 username,
@@ -51,10 +57,11 @@ const registerStrategy = new LocalStrategy( { passReqToCallback: true },
             const createdUser = await User.create(newUser);
         
              req.user = createdUser;
-            
+             logger.info(`Usuario creado: ${newUser.username}`);
             return done(null, createdUser);
         }  
         catch (error) {
+            logger.error(`Error al buscar usuario: ${error}`);
             done("Error al buscar usuario", null) 
         }
 
