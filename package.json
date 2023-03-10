@@ -2,16 +2,18 @@
   "name": "ejemplo-passport",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/server.js",
+  "main": "0x ./src/server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon .  "
+    "start": "0x ./src/server.js ",
+    "test": "node ./src/benchmark.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "artillery": "^2.0.0-30",
+    "autocannon": "^7.10.0",
     "bcrypt": "^5.1.0",
     "compression": "^1.7.4",
     "dotenv": "^16.0.3",
