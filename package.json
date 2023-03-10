@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "artillery": "^2.0.0-30",
     "bcrypt": "^5.1.0",
     "compression": "^1.7.4",
     "dotenv": "^16.0.3",
@@ -22,6 +23,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pino": "^8.11.0",
+    "pino-multi-stream": "^6.0.0",
     "winston": "^3.8.2",
     "yargs": "^17.6.2"
   }

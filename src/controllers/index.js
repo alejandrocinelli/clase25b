@@ -67,7 +67,7 @@ const info = (req, res) => {
 }) }
 
 const errorReq = (req, res) => {
-    logger.error("Error 404");
+    logger.error("Error 4044");
     res.render("routing-error");
   };
 

@@ -1,34 +1,41 @@
-import dotenv from 'dotenv';
-import winston from 'winston'; 
+import pino from "pino";
+import pinoMS from "pino-multi-stream";
 
-dotenv.config();
+// Crear un stream para los logs de consola
+const consoleStream = pino.destination({ sync: false });
 
-const buildProdLogger = () => {
-    const prodlogger = winston.createLogger({
-      transports: [
-        new winston.transports.File({ filename: "debug.log", level: "debug" }),
-        new winston.transports.File({ filename: "error.log", level: "error" }),
-        new winston.transports.File({ filename: "warn.log", level: "warn"}),
-      ],
+// Crear un stream para los logs de warning en el archivo warn.log
+const warnStream = pino.destination({
+  dest: "./logs/warn.log",
+  sync: true,
+});
+
+// Crear un stream para los logs de error en el archivo error.log
+const errorStream = pino.destination({
+  dest: "./logs/error.log",
+  sync: true,
+});
+
+// crear un stream para los logs de debug en el archivo debug.log
+const debugStream = pino.destination({
+    dest: "./logs/debug.log",
+    sync: true,
     });
-  
-    return prodlogger;
-  };
-  
-  const buildDevLogger = () => {
-    const devlogger = winston.createLogger({
-      transports: [new winston.transports.Console({ level: "info" })],
-    });
-  
-    return devlogger;
-  };
-  
-  let logger;
-  
-  if (process.env.NODE_ENV.toLocaleUpperCase() === "PROD") {
-    logger = buildProdLogger();
-  } else {
-    logger = buildDevLogger();
-  }
-  
-  export default logger;
+
+// Crear una función que determine en qué stream escribir el log en función del nivel
+const streams = pinoMS.multistream([
+  { level: "info", stream: consoleStream },
+  { level: "warn", stream: warnStream },
+  { level: "error", stream: errorStream },
+  { level: "debug", stream: debugStream },
+]);
+
+// Crear configuración de logger
+const logger = pino(
+  {
+    level: "info",
+  },
+  pino.multistream(streams)
+);
+
+export default logger;

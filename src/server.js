@@ -53,7 +53,11 @@ app.use(session({
     cookie: { maxAge: 60000 }
   
 }))
-
+app.use((req, res, next) => {
+    logger.info({ method: req.method, url: req.url });
+  
+    next();
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -103,3 +107,8 @@ const expressServer = app.listen(args.port, () => {
 });*/
 
 // "mongodb://localhost:27017/passport"
+
+// node --prof src/server.js
+//artillery quick --count 20 -n 50 http://localhost:8080/info > result.txt
+
+// node --prof-process result-v8.log > processed.txt
