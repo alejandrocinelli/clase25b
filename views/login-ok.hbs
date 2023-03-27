@@ -1,15 +1,18 @@
-<div class="container text-center my-3">
+<div class="container text-center my-3 mb-5">
+    <form action="/login/productos" method="get">
+            <input class="btn btn-primary mb-3" type="submit" value="Cargar Productos al carrito" />
+        </form>
+       
     <div class="jumbotron" style="background-color: green;color: white;">
         <h1>USER OK LOGIN!</h1>
         <h2><i>Bienvenido {{usuario}}</i></h2>
         <br>
-       
-        <h3>Email: {{email}}</h3>
+        
+        <h2>Email: {{email}}</h2>
+        <h2>Name: {{name}}</h2>
+        <h2>Last Name: {{lastname}}</h2>
         <form action="/logout" method="get">
-            <input class="btn btn-danger my-5"
-           
-             type="submit" value="LOGOUT" />
+            <input class="btn btn-danger my-5" type="submit" value="LOGOUT" />
         </form>
     </div>
 </div>
-

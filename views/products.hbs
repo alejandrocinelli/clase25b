@@ -1,0 +1,57 @@
+<div class="container text-center  jumbotron mt-5">
+  <div class="d-flex justify-content-center">
+   
+  <form action="/login/carrito" method="get" class="">
+    <input class="btn btn-primary mb-3 mr-3" type="submit" value="Ir al Carrito" />
+  </form>
+   <form action="/login" method="get" class="">
+    <input class="btn btn-primary mb-3 mr-3" type="submit" value="Volver al Login" />
+  </form>
+  </div>
+     
+     
+       <h2><i>Bienvenido Carga los productos que deses a la base de datos</i></h2>
+      
+      <!-- Formulario para agregar productos -->
+      <form method="POST" action="/login/productos" class="mb-5">
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input type="text" name="title" id="title" class="form-control" placeholder="Ingrese el título del producto">
+        </div>
+        <div class="form-group">
+          <label for="price">Precio</label>
+          <input type="number" name="price" id="price" class="form-control" placeholder="Ingrese el precio del producto">
+        </div>
+        <div class="form-group">
+          <label for="thumbnail">Thumbnail</label>
+          <input type="text" name="thumbnail" id="thumbnail" class="form-control" placeholder="Ingrese la URL del thumbnail del producto">
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar producto al carrito</button>
+      </form>
+      
+      <!-- Tabla para mostrar los productos -->
+      {{#if products}}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Precio</th>
+            <th>Thumbnail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products}}
+          <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.price}}</td>
+            <td>
+              <img src="{{this.thumbnail}}" alt="{{this.title}}" class="img-thumbnail" width="150">
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{else}}
+      <p>No hay productos para mostrar.</p>
+      {{/if}}
+    </div>

@@ -1,0 +1,45 @@
+
+<div class="container text-center  jumbotron mt-5">
+  <div class="d-flex justify-content-center">
+    <form action="/login/listproducts" method="get" class="">
+      <input class="btn btn-primary mb-3 mr-3" type="submit" value="Lista de Productos" />
+    </form>
+    <form action="/login" method="get" class="">
+      <input class="btn btn-primary mb-3 mr-3" type="submit" value="Ir al Carrito" />
+    </form>
+    <form action="/login" method="get" class="">
+      <input class="btn btn-primary mb-3 mr-3" type="submit" value="Volver al Login" />
+    </form>
+  </div>
+<div class="container">
+    
+  <h2><i>Lista de productos </i></h2>
+  {{#if productos.length}}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Imagen</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each productos}}
+          <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.price}}</td>
+            <td><img src="{{this.thumbnail}}" alt="{{this.thumbnail}}" width="100"></td>
+            <td>
+              <form action="/" method="get">
+                <input class="btn btn-primary mb-3 mr-3" type="submit" value="Agregar al Carrito" />
+              </form>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p>No se encontraron productos.</p>
+  {{/if}}
+</div>

@@ -2,6 +2,8 @@
 import bcrypt from "bcrypt";
 import LocalStrategy from 'passport-local';
 import { User } from '../models/user.models.js';
+import { Carts } from '../models/car.model.js';
+
 import logger from "./logger.js";
  
 // vamos a crear una funcion que nos permita hashear la contraseña
@@ -51,11 +53,15 @@ const registerStrategy = new LocalStrategy( { passReqToCallback: true },
             const newUser = { 
                 username,
                 password: hashPasword(password),
-                email: req.body.email
+                email: req.body.email,
+                name: req.body.name,
+                lastname: req.body.lastname,
+                phono : req.body.phono
 
             }
             const createdUser = await User.create(newUser);
-        
+            await Carts.create({ username, products: [] });
+            
              req.user = createdUser;
              logger.info(`Usuario creado: ${newUser.username}`);
             return done(null, createdUser);

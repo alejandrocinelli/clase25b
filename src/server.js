@@ -4,6 +4,7 @@ import session from 'express-session';
 import passport from 'passport';
 import mongoose from "mongoose";
 import exphbs from "express-handlebars";
+import { engine } from "express-handlebars";
 import invalidUrl from './middlewares/invalidUrl.middleware.js';
 import dotenv from 'dotenv';
 import { passportStrategy } from './lib/passport.lib.js';
@@ -38,9 +39,17 @@ if(cluster.isPrimary && args.mode.toUpperCase() ===  "cluster"){
 }
 else{
 
-app.engine(".hbs", exphbs({ extname: ".hbs", defaultLayout: "main.hbs" }));
-app.set("view engine", ".hbs");
+/*app.engine(".hbs", exphbs({ extname: ".hbs", defaultLayout: "main.hbs" }));
+app.set("view engine", ".hbs");*/
 
+app.engine(
+    "hbs",
+    engine({
+      extname: ".hbs",
+      defaultLayout: "main.hbs",
+    })
+  );
+  app.set("view engine", ".hbs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -90,7 +99,7 @@ app.use("/",routes);
 
 // app.use(invalidUrl);
 
-await mongoose.connect(process.env.DATABASE_URl);
+await mongoose.connect(process.env.MONGO_URI);
 logger.info("Database connected!");
 console.log("Databe connected!");
 
@@ -112,3 +121,4 @@ const expressServer = app.listen(args.port, () => {
 //artillery quick --count 20 -n 50 http://localhost:8080/info > result.txt
 
 // node --prof-process result-v8.log > processed.txt
+
