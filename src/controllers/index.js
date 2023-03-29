@@ -6,11 +6,11 @@ import passport from 'passport';
 import args from "../yargs.js";
 import logger from "../lib/logger.js";
 
-import {mailService} from "../nodemail.js";
+import {mailService} from "../services/nodemail.js";
 import { Carts } from '../models/car.model.js';
 import { User } from '../models/user.models.js';
 
-import {smsService} from "../smsService.js";
+import {smsService} from "../services/smsService.js";
 
 
 const getLogin = (req, res) => {

@@ -16,8 +16,6 @@ import logger from './lib/logger.js';
 import os from 'os';
 import cluster from 'cluster';
 
-
-
 const app = express();
 
 dotenv.config();
@@ -39,8 +37,6 @@ if(cluster.isPrimary && args.mode.toUpperCase() ===  "cluster"){
 }
 else{
 
-/*app.engine(".hbs", exphbs({ extname: ".hbs", defaultLayout: "main.hbs" }));
-app.set("view engine", ".hbs");*/
 
 app.engine(
     "hbs",
