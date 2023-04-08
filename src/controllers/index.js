@@ -5,7 +5,6 @@ const __dirname = dirname(__filename);
 import passport from 'passport';
 import args from "../yargs.js";
 import logger from "../lib/logger.js";
-
 import {mailService} from "../services/nodemail.js";
 import { Carts } from '../models/car.model.js';
 import { User } from '../models/user.models.js';
@@ -17,7 +16,7 @@ const getLogin = (req, res) => {
     if (req.isAuthenticated()) {
       const user = req.user;
       logger.info(`Usuario logueado: ${user.username} `);
-      mailService.sendMail(user.email, user.username  )
+      // mailService.sendMail(user.email, user.username  )
       return res.render("login-ok", {
         usuario: user.username,
         email: user.email,
@@ -59,6 +58,7 @@ const adminProducts = (req, res) => {
         logger.info(`Usuario logueado: ${user.username} `);
         return res.render("products", {user});
    }  
+/* los comento por que se manejan desde el DAO ahora 
 
 const pushCart = async (req, res) => {
     const { user } = req.session.passport;
@@ -92,12 +92,12 @@ const carritoFinish = async (req, res) => {
     const usernameFind = findUsernameById.username
     const cart = await Carts.findOne({ username: usernameFind })
     const products = cart.products
-    mailService.sendMailCartPurchased(user.email, user.username, products )
-    smsService.sendSms(findUsernameById.phono)
+    //mailService.sendMailCartPurchased(user.email, user.username, products )
+    //smsService.sendSms(findUsernameById.phono)
     //smsService.sendWsp(products)
 
     return res.render("finishCart", {products});
-}  
+}  */
 
 
 const loginFaliure = (req, res) => {
@@ -140,5 +140,5 @@ const errorReq = (req, res) => {
 export const authController = { 
     getLogin , 
     getRegister, loginFaliure ,
-    signupFaliure , logout , info , errorReq , adminProducts,
-    pushCart , getCarrito , carritoFinish}
+    signupFaliure , logout , info , errorReq , adminProducts
+    }

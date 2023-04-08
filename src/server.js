@@ -16,6 +16,7 @@ import logger from './lib/logger.js';
 import os from 'os';
 import cluster from 'cluster';
 
+
 const app = express();
 
 dotenv.config();
@@ -58,11 +59,12 @@ app.use(session({
     cookie: { maxAge: 60000 }
   
 }))
-app.use((req, res, next) => {
+/* lo callo un poco para que no me inunde la consola de mensajes*/
+/*app.use((req, res, next) => {
     logger.info({ method: req.method, url: req.url });
   
     next();
-  });
+  });*/
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -96,6 +98,7 @@ app.use("/",routes);
 // app.use(invalidUrl);
 
 await mongoose.connect(process.env.MONGO_URI);
+
 logger.info("Database connected!");
 console.log("Databe connected!");
 
